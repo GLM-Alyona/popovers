@@ -1,3 +1,4 @@
+/* eslint-disable implicit-arrow-linebreak */
 /* eslint-disable eol-last */
 /* eslint-disable no-undef */
 import puppetteer from 'puppeteer';
@@ -19,7 +20,8 @@ describe('Popover', () => {
   });
 
   afterAll(async () => {
-    await browser.close();
+    await browser.close().catch(err =>
+      console.log(err));
   });
 
   test('should add .active class for popover', async () => {

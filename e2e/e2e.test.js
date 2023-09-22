@@ -5,8 +5,8 @@ import puppetteer from 'puppeteer';
 jest.setTimeout(30000); // default puppeteer timeout
 
 describe('Popover', () => {
-  let browser = null;
-  let page = null;
+  let browser;
+  let page;
   const baseUrl = 'http://localhost:8888';
 
   beforeAll(async () => {
@@ -23,7 +23,7 @@ describe('Popover', () => {
   });
 
   test('should add .active class for popover', async () => {
-    await page.goto.active(baseUrl);
+    await page.goto(baseUrl);
     const button = await page.$('[data-toggle="popover"]');
     button.click();
     await page.waitForSelector('[data-widget="popover-top"].active');

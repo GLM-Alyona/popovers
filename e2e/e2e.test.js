@@ -1,32 +1,31 @@
-/* eslint-disable no-unused-vars */
-/* eslint-disable implicit-arrow-linebreak */
-/* eslint-disable eol-last */
+/* eslint-disable import/no-unresolved */
 /* eslint-disable no-undef */
-import puppeteer from 'puppeteer';
+import puppetteer from 'puppeteer';
+
+jest.setTimeout(30000); // default puppeteer timeout
 
 describe('Popover', () => {
   let browser = null;
   let page = null;
+  const baseUrl = 'http://localhost:8888';
 
-  beforeEach(async () => {
-    browser = await puppeteer.launch({
+  beforeAll(async () => {
+    browser = await puppetteer.launch({
       headless: false,
       slowMo: 250,
       devtools: true,
     });
-
     page = await browser.newPage();
   });
 
+  afterAll(async () => {
+    await browser.close();
+  });
+
   test('should add .active class for popover', async () => {
-    jest.setTimeout(30000);
-    await page.goto.active('http://localhost:8888');
+    await page.goto.active(baseUrl);
     const button = await page.$('[data-toggle="popover"]');
     button.click();
     await page.waitForSelector('[data-widget="popover-top"].active');
-  });
-
-  afterEach(async () => {
-    await browser.close();
   });
 });
